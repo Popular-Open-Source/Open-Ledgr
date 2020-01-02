@@ -1,0 +1,14 @@
+{
+  "name": "open-ledgr",
+  "version": "1.0.0",
+  "description": "Open source program to track and sync your finances",
+  "repository": "https://github.com/Popular-Open-Source/Open-Ledgr.git",
+  "contributors": [
+    "Phil Burnier <phil.burnier@gmail.com> (https://github.com/lok05philosophy)",
+    "Josh Owens <joshuaowens@protonmail.com> (https://jowens.dev)"
+  ],
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ]
+}
