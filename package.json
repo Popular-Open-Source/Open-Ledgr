@@ -8,6 +8,7 @@
     "Josh Owens <joshuaowens@protonmail.com> (https://jowens.dev)"
   ],
   "license": "MIT",
+  "private": true,
   "workspaces": [
     "packages/*"
   ]
