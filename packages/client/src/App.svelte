@@ -1,21 +1,23 @@
 <script>
+  import Lettermark from './Branding/Lettermark.svelte';
+  import LedgrItem from './LedgrItem/LedgrItem.svelte';
+  import Accounts from './Accounts/Accounts.svelte';
+  import Categories from './Categories/Categories.svelte';
+
   export let name;
 </script>
 
 <nav>
-  <img src="/lettermark.png" alt="Open Ledgr lettermark">
+  <Lettermark />
 </nav>
 
 <main>
   <h1>Hello {name}!</h1>
+  <Accounts />
+  <Categories />
 </main>
 
 <style>
-  nav {
-    display: flex;
-    justify-content: space-between;
-  }
-
   img {
     height: 60px;
     width: auto;
