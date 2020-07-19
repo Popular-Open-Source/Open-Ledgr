@@ -4,17 +4,39 @@
   import Accounts from './Accounts/Accounts.svelte';
   import Categories from './Categories/Categories.svelte';
 
-  export let name;
+  let view = '/home';
+
+  function setRoute(event) {
+    view = event.target.getAttribute('href') || '/home';
+  }
 </script>
 
 <nav>
-  <Lettermark />
+  <a href="/home" on:click|preventDefault={setRoute}>
+    <Lettermark />
+  </a>
 </nav>
 
 <main>
-  <h1>Hello {name}!</h1>
-  <Accounts />
-  <Categories />
+  {#if view === '/home'}
+
+    <h2>
+      <a href="/accounts" on:click|preventDefault={setRoute}>
+        Accounts
+      </a>
+    </h2>
+
+    <h2>
+      <a href="/categories" on:click|preventDefault={setRoute}>
+        Categories
+      </a>
+    </h2>
+
+  {:else if view === '/accounts'}
+    <Accounts />
+  {:else if view === '/categories'}
+    <Categories />
+  {/if}
 </main>
 
 <style>

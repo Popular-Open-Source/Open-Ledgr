@@ -1,8 +1,8 @@
 <script>
   import { today } from '../date-store.js';
 
-  import Input from '../UI/Input.svelte';
-  import Select from '../UI/Select.svelte';
+  /*import Input from '../UI/Input.svelte';*/
+  /*import Select from '../UI/Select.svelte';*/
 
   let transactionTypes = [
     {
@@ -18,6 +18,7 @@
 
 <form>
 
+  <!--
   <div class="form-control">
     <Input
       name="amount"
@@ -28,7 +29,9 @@
       value="0"
       required />
   </div>
+  -->
 
+  <!--
   <div class="form-control">
     <Select
       name="type"
@@ -36,7 +39,9 @@
       options={transactionTypes}
       required />
   </div>
+  -->
 
+  <!--
   <div class="form-control">
     <Input
       name="month"
@@ -47,6 +52,9 @@
       max="12"
       required />
   </div>
+  -->
+
+  <!--
 
   <div class="form-control">
     <Input
@@ -58,6 +66,9 @@
       value={$today.day}
       required />
   </div>
+  -->
+
+  <!--
 
   <div class="form-control">
     <Input
@@ -67,6 +78,9 @@
       value={$today.year}
       required />
   </div>
+  -->
+
+  <!--
 
   <div class="form-control">
     <Input
@@ -74,8 +88,11 @@
       label="Description"
       value="" />
   </div>
+  -->
+
 
 </form>
+
 
 <style>
   form {

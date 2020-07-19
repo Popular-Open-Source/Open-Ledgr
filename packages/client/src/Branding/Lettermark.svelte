@@ -2,6 +2,8 @@
 
 <style>
   svg {
+    position: relative;
     height: 60px;
+    z-index: 201;
   }
 </style>

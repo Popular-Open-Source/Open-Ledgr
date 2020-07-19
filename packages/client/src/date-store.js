@@ -17,6 +17,10 @@ export const today = derived(time, ($time) => {
   }
 );
 
-export const ts = derived([time, today], ([$time, $today]) => {
-  return '' + $today.year + $today.month + $today.day + $time.getMilliseconds();
+export const ts = readable(Date.now(), set => {
+  const interval = setInterval(() => {
+    set(Date.now());
+  }, 1000);
+
+  return () => clearInterval(interval);
 });

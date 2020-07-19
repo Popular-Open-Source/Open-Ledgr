@@ -6,16 +6,17 @@ function accounts() {
       {
         id: 'account1',
         name: 'Basic Ledgr',
-        startingBalance: null,
-        currentBalance: null,
-        displayCodeNum: null,
-        icon: null
+        startingBalance: 0,
+        currentBalance: 0,
+        displayCodeNum: true,
+        icon: false
       }
     ]
   );
 
   return {
     subscribe: accountStore.subscribe,
+
     add: account => {
       accountStore.update(accounts => {
         return [...accounts, account];
