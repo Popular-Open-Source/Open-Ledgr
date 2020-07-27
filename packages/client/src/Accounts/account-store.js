@@ -16,7 +16,6 @@ function accounts() {
 
   return {
     subscribe: accountStore.subscribe,
-
     add: account => {
       accountStore.update(accounts => {
         return [...accounts, account];

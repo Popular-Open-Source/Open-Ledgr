@@ -6,7 +6,7 @@ function categories() {
       {
         id: 'category1',
         name: 'Utilities',
-        accounts: []
+        linkedAccounts: []
       }
     ]
   );

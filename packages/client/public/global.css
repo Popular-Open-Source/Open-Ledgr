@@ -14,6 +14,16 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
+::selection {
+  background: #03bfea;
+  color: #fff;
+}
+
+::-moz-selection {
+  background: #03bfea;
+  color: #fff;
+}
+
 h1 {
   position: fixed;
   top: 0;
@@ -24,6 +34,7 @@ h1 {
   font-family: 'La Belle Aurore', cursive;
   font-size: 2rem;
   color: #03bfea;
+  text-align: right;
 }
 
 h2 {
@@ -105,8 +116,8 @@ button:focus:after {
 
 .record,
 .record:active {
-  background: #09f670;
-  color: #424242;
+  background: #03bfea;
+  color: #fff;
 }
 
 .erase,

@@ -1,81 +1,75 @@
 <script>
-  import { onMount } from 'svelte';
-  import { ts } from '../date-store.js';
+  import { createEventDispatcher } from 'svelte';
+  import { toSlug } from '../utility.js';
   import accounts from './account-store.js';
   import Account from './Account.svelte';
-  import FormActions from '../UI/FormActions.svelte';
+  import AccountForm from './AccountForm.svelte';
 
+  const dispatch = createEventDispatcher();
+  const account = {
+    name: 'Account Name',
+    startingBalance: 0,
+    displayCodeNum: true,
+    icon: false
+  };
+
+  let selected;
   let creating;
-  let account;
 
-  function resetDefaults() {
+  function resetDefaults(event) {
     creating = false;
-    account = {
-      name: 'Account Name',
-      startingBalance: 0,
-      displayCodeNum: true,
-      icon: false
-    };
+    selected = false;
   }
 
-  function addAccount() {
-    account.id = 'account-' + $ts;
-    account.currentBalance = account.startingBalance;
+  function selectAccount(account) {
+    selected = account.id;
 
-    accounts.add(account);
+    dispatch('route', {
+      title: account.name
+    });
 
-    resetDefaults();
+    creating = false;
   }
-
-  onMount(resetDefaults);
 </script>
-
-<h1 class="title">Accounts</h1>
 
 <div class="accounts">
   {#each $accounts as accnt (accnt.id)}
-    <Account {...accnt} />
+
+    <div class="account" id={account.id}>
+      {#if !selected}
+        <h3>
+          <a
+            href={() => toSlug(accnt.name)}
+            on:click|preventDefault={() => selectAccount(accnt)}>
+            {accnt.name}
+            </a>
+        </h3>
+      {:else if selected === accnt.id}
+        <Account
+          account={accnt}
+          on:accountDeleted={resetDefaults}
+          on:route />
+      {/if}
+    </div>
+
   {/each}
 </div>
 
-{#if !creating}
-  <button
-    class="record"
-    on:click="{() => creating = !creating}">
-    + Add Account
-  </button>
-{:else}
+{#if !selected}
+  {#if !creating}
 
-  <label for="account--codeNum">
-    Display Code Number
-    <input
-      id="account--codeNum"
-      type="checkbox"
-      bind:checked={account.displayCodeNum} >
-  </label>
+    <button
+      class="record"
+      on:click={() => creating = !creating}>
+      + Add Account
+    </button>
 
-  <label for="account--name">
-    Account Name
-    <input
-      id="account--name"
-      type="text"
-      bind:value={account.name}
-      required >
-  </label>
+  {:else}
 
-  <label for="account--balance">
-    Starting Balance
-    <input
-      id="account--balance"
-      type="number"
-      step="0.01"
-      bind:value={account.startingBalance}
-      required >
-  </label>
+    <AccountForm
+      {...account}
+      on:accountCreated={resetDefaults}
+      on:cancelCreate={resetDefaults} />
 
-  <FormActions
-    del="Trash"
-    save="Create"
-    on:save="{addAccount}"
-    on:trash="{resetDefaults}" />
+  {/if}
 {/if}

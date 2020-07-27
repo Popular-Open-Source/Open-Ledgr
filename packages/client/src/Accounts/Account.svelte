@@ -1,91 +1,37 @@
 <script>
-  import accounts from './account-store.js';
+  import AccountForm from './AccountForm.svelte';
   import Edit from '../UI/Edit.svelte';
-  import FormActions from '../UI/FormActions.svelte';
 
-  export let id;
-  export let name;
-  export let startingBalance;
-  export let currentBalance;
-  export let displayCodeNum;
-  export let icon;
+  export let account;
 
   let editing = false;
 
-  $: account = {
-    id,
-    name,
-    startingBalance,
-    currentBalance,
-    displayCodeNum,
-    icon
-  };
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+  });
 
-  function toggleEditView(event) {
-    console.log(event);
-
-    if (account.name !== name) {
-      account.name = name;
-    }
-
-    if (account.displayCodeNum !== displayCodeNum) {
-      account.displayCodeNum = displayCodeNum;
-    }
-
-    editing = !editing;
-  }
-
-  function deleteAccount() {
-    if (confirm('This will delete ' + name)) {
-      accounts.delete(id);
-    }
-  }
-
-  function updateAccount() {
-    accounts.update(account);
-    editing = false;
-  }
+  $: balance = formatter.format(account.currentBalance);
 </script>
 
-<div class="account" {id}>
-  <Edit {editing} on:edit={toggleEditView} />
+<div class="account" id={account.id}>
+  <Edit {editing} on:edit={() => editing = !editing} />
 
-  {#if !editing}
-
-    <h3>{name}</h3>
-
-  {:else}
-
-    <label for="account--codeNum">
-      Display Code Number
-      <input
-        id="account--codeNum"
-        type="checkbox"
-        bind:checked={account.displayCodeNum} >
-    </label>
-
-    <label for="account--name">
-      Account Name
-      <input
-        id="account--name"
-        type="text"
-        bind:value={account.name}
-        required >
-    </label>
-
-    <FormActions
-      save="Update"
-      on:save={updateAccount}
-      on:trash={deleteAccount} />
-
+  {#if editing}
+    <AccountForm
+      {...account}
+      on:route
+      on:accountUpdated={() => editing = false}
+      on:accountDeleted />
   {/if}
+
+  <p>{balance}</p>
 
 </div>
 
 <style>
-  .account {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+  .account :global(.edit) {
+    margin-left: auto;
   }
 </style>

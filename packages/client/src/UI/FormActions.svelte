@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from 'svelte';
+  import { ts } from '../date-store.js';
 
   const dispatch = createEventDispatcher();
 
@@ -8,13 +9,17 @@
 </script>
 
 {#if del}
-  <button class="erase" on:click="{() => {dispatch('trash', true)}}">
+  <button
+    class="erase"
+    on:click="{() => dispatch('trash', true)}">
     {del}
   </button>
 {/if}
 
 {#if save}
-  <button class="record" on:click="{() => dispatch('save', true)}">
+  <button
+    class="record"
+    on:click="{() => dispatch('save', {ts: $ts})}">
     {save}
   </button>
 {/if}
