@@ -4,83 +4,67 @@
   import Accounts from './Accounts/Accounts.svelte';
   import Categories from './Categories/Categories.svelte';
 
-  let view = '/';
-  let title;
-
-  function getViewDataFromEvent(event) {
-    switch (event.type) {
-      case 'click':
-        handleClick(event.target);
-        break;
-      case 'route':
-        handleRoute(event.detail);
-        break;
+  const routes = [
+    {
+      label: 'Accounts',
+      component: Accounts
+    },
+    {
+      label: 'Categories',
+      component: Categories
     }
-  }
+  ]
 
-  function handleClick(target) {
-    const slug = target.getAttribute('href');
-
-    if (slug) {
-      title = target.textContent;
-      view = slug;
-    } else {
-      title = '';
-      view = '/';
-    }
-  }
-
-  function handleRoute(detail) {
-    if (detail.route) {
-      view = detail.route;
-    }
-
-    if (detail.title) {
-      title = detail.title;
-    }
-  }
+  let currentPage
 </script>
 
-<nav>
-  <a href="/" on:click|preventDefault={getViewDataFromEvent}>
+<header>
+  <nav>
     <Lettermark />
-  </a>
 
-  {#if title}
-    <h1>{title}</h1>
-  {/if}
-</nav>
+    <ul>
+      {#each routes as route}
+        <li>
+          <label>
+            <input
+              name="currentPage"
+              class="sr-only"
+              type="radio"
+              value={route.component}
+              bind:group={currentPage}>
+            {route.label}
+          </label>
+        </li>
+      {/each}
+    </ul>
+  </nav>
+</header>
 
 <main>
-  {#if view === '/'}
-
-    <h2>
-      <a href="/accounts" on:click|preventDefault={getViewDataFromEvent}>
-        Accounts
-      </a>
-    </h2>
-
-    <h2>
-      <a href="/categories" on:click|preventDefault={getViewDataFromEvent}>
-        Categories
-      </a>
-    </h2>
-
-  {:else if view === '/accounts'}
-    <Accounts on:route={getViewDataFromEvent} />
-  {:else if view === '/categories'}
-    <Categories on:route={getViewDataFromEvent} />
-  {/if}
-
-  <LedgrItem />
+  <svelte:component this={currentPage}/>
 </main>
 
 <style>
+  header {
+    box-shadow: var(--shadow);
+    padding: 15px;
+    background: #fff;
+  }
+
   nav {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  nav li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 1em;
+    cursor: pointer;
   }
 
   img {
@@ -91,8 +75,8 @@
   main {
     text-align: center;
     padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
+    margin: 10px auto;
+    max-width: 1200px;
   }
 
   @media (min-width: 640px) {
