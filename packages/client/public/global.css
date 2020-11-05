@@ -1,3 +1,9 @@
+:root {
+  --blue: #03bfea;
+  --dark: #424242;
+  --red: #f9623e;
+}
+
 html,
 body {
   position: relative;
@@ -33,7 +39,7 @@ h1 {
   z-index: 201;
   font-family: 'La Belle Aurore', cursive;
   font-size: 2rem;
-  color: #03bfea;
+  color: var(--blue);
   text-align: right;
 }
 
@@ -94,7 +100,7 @@ button {
   -moz-appearance: none;
   appearance: none;
   position: relative;
-  background: #424242;
+  background: var(--dark);
   color: #fff;
 }
 
@@ -116,12 +122,12 @@ button:focus:after {
 
 .record,
 .record:active {
-  background: #03bfea;
+  background: var(--blue);
   color: #fff;
 }
 
 .erase,
 .erase:active {
-  background: #f9623e;
+  background: var(--red);
   color: #fff;
 }

@@ -71,6 +71,8 @@
   {:else if view === '/categories'}
     <Categories on:route={getViewDataFromEvent} />
   {/if}
+
+  <LedgrItem />
 </main>
 
 <style>

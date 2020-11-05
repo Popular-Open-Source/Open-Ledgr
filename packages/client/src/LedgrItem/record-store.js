@@ -1,14 +1,5 @@
-import { writable } from 'svelte/store';
+import Store from '../Store'
 
-function createRecord() {
-  const records = writable([]);
+const records = new Store('records', [])
 
-  return {
-    subscribe: records.subscribe,
-    add: item => {
-      records.update(items => {
-        return [...items, item];
-      });
-    }
-  }
-}
+export default records.make()
