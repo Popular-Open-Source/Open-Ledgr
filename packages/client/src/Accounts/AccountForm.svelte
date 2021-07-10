@@ -1,18 +1,18 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-  import accounts from './account-store.js';
-  import FormActions from '../UI/FormActions.svelte';
+  import { createEventDispatcher } from 'svelte'
+  import accounts from './account-store.js'
+  import FormActions from '../UI/FormActions.svelte'
 
-  const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher()
 
-  export let id;
-  export let name;
-  export let startingBalance;
-  export let currentBalance;
-  export let displayCodeNum;
-  export let icon;
+  export let id
+  export let name
+  export let startingBalance
+  export let currentBalance
+  export let displayCodeNum
+  export let icon
 
-  const originalName = name;
+  const originalName = name
 
   function updateAccount(event) {
     accounts.update({
@@ -22,40 +22,39 @@
       currentBalance,
       displayCodeNum,
       icon
-    });
+    })
 
-    dispatch('accountUpdated', {id});
+    dispatch('accountUpdated')
 
     if (name !== originalName) {
       dispatch('route', {
         title: name
-      });
+      })
     }
   }
 
   function deleteAccount(event) {
     if (confirm('This will delete ' + name)) {
-      accounts.delete(id);
+      accounts.delete(id)
 
       dispatch('route', {
         title: 'Accounts'
-      });
+      })
 
-      dispatch('accountDeleted', {id});
+      dispatch('accountDeleted')
     }
   }
 
   function createAccount(event) {
     accounts.add({
-      id: 'account-' + event.detail.ts,
       name,
       startingBalance,
       currentBalance: startingBalance,
       displayCodeNum,
       icon
-    });
+    })
 
-    dispatch('accountCreated', {id});
+    dispatch('accountCreated');
   }
 </script>
 

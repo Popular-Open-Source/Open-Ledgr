@@ -42,12 +42,11 @@
 
   function createCategory(event) {
     categories.add({
-      id: 'category-' + event.detail.ts,
       name,
       linkedAccounts
     });
 
-    dispatch('categoryCreated', {id});
+    dispatch('categoryCreated');
   }
 </script>
 

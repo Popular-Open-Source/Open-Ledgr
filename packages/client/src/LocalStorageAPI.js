@@ -1,8 +1,5 @@
 import API from './API'
 
-/**
- * Store Ledgr information in a localStorage object.
- */
 export default class LocalStorageAPI extends API {
 
   constructor(name) {
@@ -11,8 +8,6 @@ export default class LocalStorageAPI extends API {
   }
 
   /**
-   * Set a value to localStorage.
-   *
    * @param {array} value
    */
   set(value) {
@@ -20,8 +15,6 @@ export default class LocalStorageAPI extends API {
   }
 
   /**
-   * Get the data from localStorage.
-   *
    * @return {?array}
    */
   get() {
@@ -35,5 +28,4 @@ export default class LocalStorageAPI extends API {
       return null
     }
   }
-
 }

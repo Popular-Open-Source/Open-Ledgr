@@ -2,6 +2,7 @@
   --blue: #03bfea;
   --dark: #424242;
   --red: #f9623e;
+  --shadow: 3px 3px 5px 1px rgba(34, 34, 34, 0.3);
 }
 
 html,
@@ -13,7 +14,7 @@ body {
 
 body {
   background: #fcf4db;
-  color: #333;
+  color: #424242;
   margin: 0;
   padding: 8px;
   box-sizing: border-box;
@@ -21,22 +22,29 @@ body {
 }
 
 ::selection {
-  background: #03bfea;
+  background: var(--blue);
   color: #fff;
 }
 
 ::-moz-selection {
-  background: #03bfea;
+  background: var(--blue);
   color: #fff;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
 h1 {
-  position: fixed;
-  top: 0;
-  right: 0;
   padding: 10px 20px;
   margin: 0;
-  z-index: 201;
   font-family: 'La Belle Aurore', cursive;
   font-size: 2rem;
   color: var(--blue);
@@ -94,7 +102,7 @@ button {
   outline: none;
   border: 0;
   cursor: pointer;
-  box-shadow: 3px 3px 5px 1px rgba(34, 34, 34, 0.3);
+  box-shadow: var(--shadow);
   transition: box-shadow 0.2s ease;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -130,4 +138,16 @@ button:focus:after {
 .erase:active {
   background: var(--red);
   color: #fff;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.bg-dark {
+  background-color: var(--dark);
+}
+
+.shadow {
+  box-shadow: var(--shadow);
 }

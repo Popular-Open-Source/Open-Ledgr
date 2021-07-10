@@ -1,27 +1,44 @@
 <script>
-  import AccountForm from './AccountForm.svelte';
-  import Edit from '../UI/Edit.svelte';
+  import { createEventDispatcher } from 'svelte';
+  import AccountForm from './AccountForm.svelte'
+  import Edit from '../UI/Edit.svelte'
 
-  export let account;
+  const dispatch = createEventDispatcher()
 
-  let editing = false;
+  export let id
+  export let name
+  export let startingBalance
+  export let currentBalance
+  export let displayCodeNum
+  export let icon
+
+  let editing = false
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: 2
-  });
+  })
 
-  $: balance = formatter.format(account.currentBalance);
+  $: balance = formatter.format(currentBalance)
 </script>
 
-<div class="account" id={account.id}>
-  <Edit {editing} on:edit={() => editing = !editing} />
+<div class="account">
+  <header>
+    <button on:click|preventDefault={() => dispatch('close')}>
+      <i class="gg-arrow-left"></i>
+    </button>
+    <h1>{name}</h1>
+    <Edit {editing} on:edit={() => editing = !editing} />
+  </header>
 
   {#if editing}
     <AccountForm
-      {...account}
-      on:route
+      {name}
+      {startingBalance}
+      {currentBalance}
+      {displayCodeNum}
+      {icon}
       on:accountUpdated={() => editing = false}
       on:accountDeleted />
   {/if}
@@ -31,7 +48,9 @@
 </div>
 
 <style>
-  .account :global(.edit) {
-    margin-left: auto;
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: end;
   }
 </style>

@@ -11,7 +11,7 @@
 {#if del}
   <button
     class="erase"
-    on:click="{() => dispatch('trash', true)}">
+    on:click="{() => dispatch('trash')}">
     {del}
   </button>
 {/if}

@@ -1,8 +1,8 @@
 <script>
-  import Lettermark from './Branding/Lettermark.svelte';
-  import LedgrItem from './LedgrItem/LedgrItem.svelte';
-  import Accounts from './Accounts/Accounts.svelte';
-  import Categories from './Categories/Categories.svelte';
+  import Lettermark from './Branding/Lettermark.svelte'
+  import LedgrItem from './LedgrItem/LedgrItem.svelte'
+  import Accounts from './Accounts/Accounts.svelte'
+  import Categories from './Categories/Categories.svelte'
 
   const routes = [
     {
@@ -15,12 +15,12 @@
     }
   ]
 
-  let currentPage
+  let currentPage = Accounts
 </script>
 
-<header>
+<header class="bg-dark text-white shadow">
   <nav>
-    <Lettermark />
+    <Lettermark theme="light" />
 
     <ul>
       {#each routes as route}
@@ -46,9 +46,7 @@
 
 <style>
   header {
-    box-shadow: var(--shadow);
     padding: 15px;
-    background: #fff;
   }
 
   nav {
@@ -65,6 +63,7 @@
     display: inline-block;
     margin: 0 1em;
     cursor: pointer;
+    color: #fff;
   }
 
   img {

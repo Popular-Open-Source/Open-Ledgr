@@ -9,6 +9,7 @@ export default class Store {
   constructor(name, initial, key) {
     this.key = key || 'id'
     this.initial = initial
+    this.name = name
     this.api = new LocalStorageAPI(name)
   }
 
@@ -65,6 +66,8 @@ export default class Store {
    * @param {object} val
    */
   addItem(data, val) {
+    val[this.key] = this.name + Date.now()
+
     return [...data, val]
   }
 
@@ -105,7 +108,7 @@ export default class Store {
     return {
       subscribe: this.store.subscribe,
       add: item => {
-        this.updateAPI(item, this.addItem)
+        this.updateAPI(item, this.addItem.bind(this))
       },
       update: item => {
         this.updateAPI(item, this.updateItem.bind(this))

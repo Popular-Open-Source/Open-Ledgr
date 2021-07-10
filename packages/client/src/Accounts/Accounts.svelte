@@ -1,75 +1,30 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-  import { toSlug } from '../utility.js';
-  import accounts from './account-store.js';
-  import Account from './Account.svelte';
-  import AccountForm from './AccountForm.svelte';
+  import accounts from './account-store.js'
+  import Account from './Account.svelte'
 
-  const dispatch = createEventDispatcher();
-  const account = {
-    name: 'Account Name',
-    startingBalance: 0,
-    displayCodeNum: true,
-    icon: false
-  };
-
-  let selected;
-  let creating;
-
-  function resetDefaults(event) {
-    creating = false;
-    selected = false;
-  }
+  let detail
 
   function selectAccount(account) {
-    selected = account.id;
-
-    dispatch('route', {
-      title: account.name
-    });
-
-    creating = false;
+    detail = account
   }
 </script>
 
-<div class="accounts">
-  {#each $accounts as accnt (accnt.id)}
+{#if !detail}
 
-    <div class="account" id={account.id}>
-      {#if !selected}
-        <h3>
-          <a
-            href={() => toSlug(accnt.name)}
-            on:click|preventDefault={() => selectAccount(accnt)}>
-            {accnt.name}
-            </a>
+  <div class="accounts">
+    {#each $accounts as accnt (accnt.id)}
+      <div class="account">
+        <h3 on:click={selectAccount(accnt)}>
+          {accnt.name}
         </h3>
-      {:else if selected === accnt.id}
-        <Account
-          account={accnt}
-          on:accountDeleted={resetDefaults}
-          on:route />
-      {/if}
-    </div>
+      </div>
+    {/each}
+  </div>
 
-  {/each}
-</div>
+{:else}
 
-{#if !selected}
-  {#if !creating}
+  <Account
+    {...detail}
+    on:close={() => detail = null}  />
 
-    <button
-      class="record"
-      on:click={() => creating = !creating}>
-      + Add Account
-    </button>
-
-  {:else}
-
-    <AccountForm
-      {...account}
-      on:accountCreated={resetDefaults}
-      on:cancelCreate={resetDefaults} />
-
-  {/if}
 {/if}
